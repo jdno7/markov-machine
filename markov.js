@@ -36,41 +36,55 @@ class MarkovMachine {
       }
      
     }
-    console.log(this.chains)
+    // console.log(this.chains)
   }
 
 
   /** return random text from chains */
 
   makeText(numWords) {
-    // const arr = []
-    // let newText = '' 
-    // for (let key in this.chains){
-    //   // console.log(this.chains[key])
-    //    arr.push(key)
-    // }
-    // const rand = Math.floor(Math.random() * arr.length+1)
-    // // console.log(arr[rand])
-    // for (let i = 0; i < numWords; i++){
-    //   if (i = 0){
-    //     newText += arr[rand];
-    //     newText += ' ';
-    //     if (this.chains[arr[rand]] === undefined){
-    //       newText += ''
-    //     }
-    //     newText += this.chains[arr[rand]];
-    //     newText += ' ';
-    //   }
-      
-    // }
-    // console.log(newText)
+    const arr = []
+    const finalArr = []
+    this.text 
+    
+    for (let key in this.chains){
+
+       arr.push(key)
     }
 
-}
+    for (let i = 0; i <= numWords+5; i++){
+      const rand = Math.floor(Math.random() * arr.length)
+    
+        if(finalArr.length === numWords){
+          this.text = finalArr.join(' ')
+          return 
+        }
+        else if (this.chains[arr[rand]][0] === null){
+          // console.log('catching and should continue')
+          continue 
+        }
+ 
+        else if (this.chains[arr[rand]].length > 1){
+     
+          const randTwo = Math.floor(Math.random() * this.chains[arr[rand]].length)
+  
+          finalArr.push(this.chains[arr[rand]][randTwo]);
+        }
+        finalArr.push(this.chains[arr[rand]][0]);
+        
+    }
+    this.text = finalArr.join(' ')
+      }
+      
+    }
+    
+    
 
-let mm = new MarkovMachine('the arsenist has odly shaped has feet')
-// const chains = {}
 
-mm.makeText(5)
 
-// console.log(chains)
+// let mm = new MarkovMachine('the arsenist has odly shaped has feet')
+// // const chains = {}
+
+
+
+module.exports = { MarkovMachine }
